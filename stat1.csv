@@ -1,0 +1,11 @@
+cents id,Valid,type commission
+cents_1,yes,cents/share
+cents_2,yes,flat
+cents_3,yes,basis pt
+cents_4,no,flat
+cents_5,yes,cents/share
+cents_6,yes,basis pt
+cents_7,no,flat
+cents_8,yes,cents/share
+cents_9,yes,basis pt
+cents_0,yes,flat
