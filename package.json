@@ -1,0 +1,32 @@
+{
+  "name": "tpm",
+  "version": "1.0.0",
+  "description": "tpm module (REST).",
+  "main": "entry.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devilwalk09/TPM.git"
+  },
+  "keywords": [
+    "order",
+    "fills",
+    "trade",
+    "position"
+  ],
+  "author": "group 5 finance",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devilwalk09/TPM/issues"
+  },
+  "homepage": "https://github.com/devilwalk09/TPM#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chalk": "^2.3.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.11",
+    "path": "^0.12.7"
+  }
+}
