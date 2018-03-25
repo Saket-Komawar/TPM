@@ -12,5 +12,6 @@ important point to cover => which focuses on its server side importance.
 3.4
 Add (Book_id = string) in Order, Fill, Trade, Position Document
 Add (Product_id = string) in Trade and Position Document
+Remove (client_id and order_id) fields from position Document
 
 4.1 Change class diagram accoringly
