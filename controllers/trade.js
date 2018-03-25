@@ -1,25 +1,29 @@
-var buffer = require("../o_buffer");
+var oBuffer = require("../o_buffer");
+var fBuffer = require("../f_buffer");
 var Trade = require("../models/Schema").Trade;  
 
 exports.createTrade = function (req , res) {
 	
-	var trade = new Trade ({
-		orderID : buffer.orderID,
-		clientID : buffer.clientID,
-		tradeID : buffer.tradeID,
-		fillID : buffer.fillID , 
-		qtySize : buffer.qtySize , 
-		price : buffer.price,
-		exchangeID : buffer.exchangeID ,
-		orderStamp : buffer.orderStamp,
-		exchangeStamp : buffer.exchangeStamp ,
-		tradeStamp : buffer.tradeStamp , 
-		counterParty : buffer.counterParty,
-		commision : buffer.commision	
-	});
+		var trade = new Trade ({
+			orderID : oBuffer.orderID,
+			clientID : oBuffer.clientID,
+			tradeID : oBuffer.tradeID,
+			fillID : oBuffer.fillID , 
+			qtySize : oBuffer.qtySize , 
+			price : oBuffer.price,
+			exchangeID : oBuffer.exchangeID ,
+			orderStamp : oBuffer.orderStamp,
+			exchangeStamp : oBuffer.exchangeStamp ,
+			tradeStamp : oBuffer.tradeStamp , 
+			counterParty : oBuffer.counterParty,
+			commision : oBuffer.commision	
+		});
 } 
 
-exports.validate = function (req , res) {
+var validate = function(){
+	if(oBuffer.price >= 0 && oBuffer.qtySize >= 0 ){
+
+	}
 }
 
 exports.figuration = function (req , res) {

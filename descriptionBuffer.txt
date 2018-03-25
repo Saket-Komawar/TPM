@@ -1,0 +1,16 @@
+3.2.2
+ExpressJS
+//Find 3 points of this from net
+important point to cover => using it to make rest api
+
+3.2.3
+JavaScript
+//Write Description of this language atleast 3 points
+important point to cover => which focuses on its server side importance.
+
+
+3.4
+Add (Book_id = string) in Order, Fill, Trade Document Document
+Add (Product_id = string) in Trade and Position Document
+
+4.1 Change class diagram accoringly
