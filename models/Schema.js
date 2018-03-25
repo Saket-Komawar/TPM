@@ -6,9 +6,11 @@ var ObjectId = Schema.ObjectId;
 var Trade = mongoose.model( 'Trade' , new Schema({
 	orderID : String ,
 	clientID : String ,
+	BookID: String,
 	tradeID : Number ,
 	fillID : Number ,
-	qtySize : Number , 
+	qtySize : Number ,
+	ProductID : String, 
 	price : Schema.Types.Decimal128 ,
 	exchangeID : Number ,
 	orderStamp : { type: Date, default: Date.now } ,
@@ -21,6 +23,8 @@ var Trade = mongoose.model( 'Trade' , new Schema({
 var Position = mongoose.model('Position' , new Schema({
 	orderID : String ,
 	clientID : String ,
+	BookID : String,
+	ProductID : String,
 	realisedPL : Schema.Types.Decimal128 ,
 	unrealisedPL : Schema.Types.Decimal128 ,
 	netPosition : Number , 
