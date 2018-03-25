@@ -22,8 +22,6 @@ var Trade = mongoose.model( 'Trade' , new Schema({
 }))
 
 var Position = mongoose.model('Position' , new Schema({
-	orderId : String ,
-	clientId : String ,
 	bookId : String,
 	productId : String,
 	realisedPL : String ,
