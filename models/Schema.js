@@ -9,6 +9,7 @@ var Trade = mongoose.model( 'Trade' , new Schema({
 	clientId : String ,
 	bookId: String,
 	fillId : String ,
+	side : String,
 	qtySize : String ,
 	productId : String, 
 	price : String ,
