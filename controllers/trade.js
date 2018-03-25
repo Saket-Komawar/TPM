@@ -58,20 +58,3 @@ var validate = function(){
 var figuration = function () {
 	return 1;
 }
-
-
-//Create Trade
-			var trade = new Trade ({
-				orderId : oBuffer.orderId,
-				clientId : oBuffer.clientId,
-				tradeId : oBuffer.tradeId,
-				fillId : oBuffer.fillId , 
-				qtySize : oBuffer.qtySize , 
-				price : oBuffer.price,
-				exchangeId : oBuffer.exchangeId ,
-				orderStamp : oBuffer.orderStamp,
-				exchangeStamp : oBuffer.exchangeStamp ,
-				tradeStamp : oBuffer.tradeStamp , 
-				counterParty : oBuffer.counterParty,
-				commision : oBuffer.commision	
-			});
