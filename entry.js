@@ -13,6 +13,11 @@ app.use(expressStatusMonitor());
 app.set('port', process.env.PORT || 3000);
 mongoose.connect ('mongodb://localhost/tpmDB');
 
+//Controllers 
+tradeC = require("./controllers/trade")
+
+//Express Routes
+app.get('/create_trade', tradeC.createTrade);
 
 
 //Start Express server.

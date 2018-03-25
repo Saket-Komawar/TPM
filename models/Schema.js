@@ -4,27 +4,28 @@ var ObjectId = Schema.ObjectId;
 
 
 var Trade = mongoose.model( 'Trade' , new Schema({
-	orderID : String ,
-	clientID : String ,
-	BookID: String,
-	tradeID : Number ,
-	fillID : Number ,
+	orderId : String ,
+	clientId : String ,
+	bookId: String,
+	tradeId : ObjectId ,
+	fillId : Number ,
 	qtySize : Number ,
-	ProductID : String, 
+	productId : String, 
 	price : Schema.Types.Decimal128 ,
-	exchangeID : Number ,
+	exId : String ,
 	orderStamp : { type: Date, default: Date.now } ,
-	exchangeStamp : { type: Date, default: Date.now } ,
+	exStamp : { type: Date, default: Date.now } ,
 	tradeStamp : { type: Date, default: Date.now } , 
 	counterParty : String ,
+	state : String,
 	commision : Number  		
 }))
 
 var Position = mongoose.model('Position' , new Schema({
-	orderID : String ,
-	clientID : String ,
-	BookID : String,
-	ProductID : String,
+	orderId : String ,
+	clientId : String ,
+	bookId : String,
+	productId : String,
 	realisedPL : Schema.Types.Decimal128 ,
 	unrealisedPL : Schema.Types.Decimal128 ,
 	netPosition : Number , 

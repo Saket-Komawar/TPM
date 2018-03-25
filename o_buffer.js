@@ -1,11 +1,12 @@
 //ORDER BUFFER
-exports.orderID = '#' 
-exports.clientID = '#'
-exports.side = '#'
-exports.productID = '#'
-exports.size = '#'
-exports.askedPrice = '#'
-exports.orderStamp = '#'
-exports.roc = '#'
-exports.state = '#'
-
+exports.order = {
+	"orderId" : '1', 
+	"clientId" : 'client_1',
+	"side" : 'BUY',
+	"productId" : 'INF',
+	"size" : '10',
+	"askedPrice" : '100',
+	"orderStamp" : Date(),
+	"reasonOfCancellation" : '#',
+	"state" : 'Filled'
+}
