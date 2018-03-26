@@ -8,78 +8,70 @@ var csv_obj = csv();
 
 exports.createTrade = function (req , res) {
 	//Before creating Trade
-	var clientStat = init()
-	//Do something
+	var clientStat = init();
 	fBuffer.forEach((fill) => {
-			(valid, commisionType) = validate(fill, clientStat);
-			var trade1 = new Trade ({
+		//Do something
+		(valid, commisionType) = validate(fill, clientStat);
+		var trade1 = new Trade ({
+			orderId : oBuffer.orderId,
+			clientId : 'CS',
+			bookId : fill.bookId ,
+			fillId : fill.fillId ,
+			side :  oBuffer.side,
+			qtySize : fill.qtySize , 
+			price : fill.price,
+			exId : fill.exId ,
+			productId : oBuffer.productId,
+			orderStamp : oBuffer.orderStamp,
+			exStamp : fill.exStamp ,
+			tradeStamp : Date() , 
+			counterParty : fill.counterParty,
+			commision : 0,
+			state : 'Closed'
+		});
+		
+		//Dump Trade to DataBase	
+		trade1.save((err) => {console.log(err);});
+
+		//Evaluating Position for Trade1
+		evaluatePosition(trade1, fill);
+
+		var exSide = "BUY";
+		if(oBuffer.side === "BUY")
+			exSide = "SELL";
+
+		if(oBuffer.clientId !== 'CS'){
+			var trade2 = new Trade ({
 				orderId : oBuffer.orderId,
-				clientId : 'CS',
+				clientId : oBuffer.clientId,
 				bookId : fill.bookId ,
-				fillId : fill.fillId ,
-				side :  oBuffer.side,
+				fillId : fill.fillId , 
+				side :  exSide,
 				qtySize : fill.qtySize , 
 				price : fill.price,
-				exId : fill.exId ,
 				productId : oBuffer.productId,
+				exId : fill.exId ,
 				orderStamp : oBuffer.orderStamp,
 				exStamp : fill.exStamp ,
 				tradeStamp : Date() , 
 				counterParty : fill.counterParty,
-				commision : 0,
+				commision : figuration(fill, commissionType),
 				state : 'Closed'
-			});
-			
+			});		
 			//Dump Trade to DataBase	
-			trade1.save((err) => {console.log(err);});
-
-			//Evaluating Position for Trade1
-			evaluatePosition(trade1, fill);
-
-			var exSide = "BUY";
-			if(oBuffer.side === "BUY")
-				exSide = "SELL";
-
-
-			if(oBuffer.clientId !== 'CS'){
-				var trade2 = new Trade ({
-					orderId : oBuffer.orderId,
-					clientId : oBuffer.clientId,
-					bookId : fill.bookId ,
-					fillId : fill.fillId , 
-					side :  exSide,
-					qtySize : fill.qtySize , 
-					price : fill.price,
-					productId : oBuffer.productId,
-					exId : fill.exId ,
-					orderStamp : oBuffer.orderStamp,
-					exStamp : fill.exStamp ,
-					tradeStamp : Date() , 
-					counterParty : fill.counterParty,
-					commision : figuration(fill, commissionType),
-					state : 'Closed'
-				});		
-				//Dump Trade to DataBase	
-				trade2.save((err) => {console.log(err);});
-
-			}
-
-		})
-			
-		
+			trade2.save((err) => {console.log(err);});
+		}
+	})
 }
  
-function getClientStat(id, valid, commission) {
+function getClientStat(id, valid, commision){
 	this.Id = id;
 	this.Valid = valid
-	this.Comm = commission;
+	this.Comm = commision;
 }
 
 function init(){
-	
 	var clientStat = [];
-	
-	
 	csv_obj.from.path('../stat1.csv').to.array(function (data) {
 	    for (var index = 0; index < data.length; index++) {
 	        clientStat.push(new getClientStat(data[index][0], data[index][1], data[index][2]));
@@ -95,10 +87,20 @@ var validate = function(fill, clientStat){
 			if(clientStat[index][0] === fill.clientId){
 				return (clientStat[index][1], clientStat[index][2]);
 			}
-			else 
+			else
 				return ('NA', 'NA');
 		}
 	}
+}
+
+var figuration = function (fill, commisionType) {
+	if(commisionType == 'cents/share')
+		;//Do something
+	else if(commisionType == 'flat')
+		;//Do something
+	else if(commisionType == 'basis pt')
+		;//Do something
+	return -1;
 }
 
 var evaluatePosition = function(trade, fill){
@@ -124,6 +126,7 @@ var evaluatePosition = function(trade, fill){
 			pos.netPosition = parseInt(pos.netPosition);
 			pos.qtySize = parseInt(pos.qtySize);
 			pos.avgPrice = parseInt(pos.avgPrice);
+
 			if(trade.side === "BUY"){
 				lNetPosition = pos.netPosition + fill.qtySize;
 				if(pos.netPosition > 0){
@@ -193,15 +196,4 @@ var evaluatePosition = function(trade, fill){
 
 }
 
-var figuration = function (fill, commissionType) {
-	if(commissionType == 'cents/share')
-		;//Do something
-	else if(commissionType == 'flat')
-		;//Do something
-	else if(commissionType == 'basis pt')
-		;//Do something
-	else
-		;
-	return 1;
-}
 
