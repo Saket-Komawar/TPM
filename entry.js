@@ -14,7 +14,7 @@ app.set('port', process.env.PORT || 3000);
 mongoose.connect ('mongodb://localhost/tpmDB');
 
 //Controllers 
-tradeC = require("./controllers/trade")
+tradeC = require("./controllers/trade_position")
 
 //Express Routes
 app.get('/create_trade', tradeC.createTrade);
