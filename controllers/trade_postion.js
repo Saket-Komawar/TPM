@@ -85,13 +85,10 @@ var evaluatePosition = function(trade, fill){
 				lNetPosition = -1 * fQtySize;
 			
 		}
-		if(pos){
+		else{
 			pos.netPosition = parseInt(pos.netPosition);
 			pos.qtySize = parseInt(pos.qtySize);
 			pos.avgPrice = parseInt(pos.avgPrice);
-		}	
-
-		else{
 			if(trade.side === "BUY"){
 				lNetPosition = pos.netPosition + fill.qtySize;
 				if(pos.netPosition > 0){
