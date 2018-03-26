@@ -3,12 +3,15 @@ var fBuffer = require("../f_buffer").fills;
 var mongoose  = require('mongoose');
 var Trade = require("../models/Schema").Trade;  
 var Position = require("../models/Schema").Position;  
+var csv = require('csv');
+var csv_obj = csv();
 
 exports.createTrade = function (req , res) {
 	//Before creating Trade
+	var clientStat = init()
 	//Do something
-	if(true) {
-		fBuffer.forEach((fill) => {
+	fBuffer.forEach((fill) => {
+			(valid, commisionType) = validate(fill, clientStat);
 			var trade1 = new Trade ({
 				orderId : oBuffer.orderId,
 				clientId : 'CS',
@@ -53,7 +56,7 @@ exports.createTrade = function (req , res) {
 					exStamp : fill.exStamp ,
 					tradeStamp : Date() , 
 					counterParty : fill.counterParty,
-					commision : figuration(),
+					commision : figuration(fill, commissionType),
 					state : 'Closed'
 				});		
 				//Dump Trade to DataBase	
@@ -63,8 +66,40 @@ exports.createTrade = function (req , res) {
 
 		})
 			
-	}		
-} 
+		
+}
+ 
+function getClientStat(id, valid, commission) {
+	this.Id = id;
+	this.Valid = valid
+	this.Comm = commission;
+}
+
+function init(){
+	
+	var clientStat = [];
+	
+	
+	csv_obj.from.path('../stat1.csv').to.array(function (data) {
+	    for (var index = 0; index < data.length; index++) {
+	        clientStat.push(new getClientStat(data[index][0], data[index][1], data[index][2]));
+	    }
+	    console.log(clientStat);
+	});
+	return clientStat;
+}
+
+var validate = function(fill, clientStat){
+	if(fill.price >= 0 && fill.qtySize >= 0 ){
+		for(var index = 0; index < clientStat.length; index++){
+			if(clientStat[index][0] === fill.clientId){
+				return (clientStat[index][1], clientStat[index][2]);
+			}
+			else 
+				return ('NA', 'NA');
+		}
+	}
+}
 
 var evaluatePosition = function(trade, fill){
 	//Position variables
@@ -158,12 +193,15 @@ var evaluatePosition = function(trade, fill){
 
 }
 
-var validate = function(){
-	if(oBuffer.price >= 0 && oBuffer.qtySize >= 0 ){
-
-	}
-}
-
-var figuration = function () {
+var figuration = function (fill, commissionType) {
+	if(commissionType == 'cents/share')
+		;//Do something
+	else if(commissionType == 'flat')
+		;//Do something
+	else if(commissionType == 'basis pt')
+		;//Do something
+	else
+		;
 	return 1;
 }
+
