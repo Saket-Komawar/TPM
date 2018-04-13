@@ -55,7 +55,7 @@ exports.createTrade = function (req , res) {
 				exStamp : fill.exStamp ,
 				tradeStamp : Date() , 
 				counterParty : fill.counterParty,
-				commision : figuration(fill, commissionType),
+				commision : figuration(fill, commissionType, oBuffer.clientId, clientStat),
 				state : 'Closed'
 			});		
 			//Dump Trade to DataBase	
@@ -93,11 +93,13 @@ var validate = function(fill, clientStat){
 	}
 }
 
-var figuration = function (fill, commisionType) {
+var figuration = function (fill, commisionType, clientId, clientStat) {
+	var rate = 10;	//Take input from clientStat
+	var amt = 100;	// Assigned temporarily
 	if(commisionType == 'cents/share')
-		;//Do something
+		return fill.qtySize*fill.price*rate/10000;//Do something
 	else if(commisionType == 'flat')
-		;//Do something
+		return amt;//Do something
 	else if(commisionType == 'basis pt')
 		;//Do something
 	return -1;
